@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="pygmalion"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -90,3 +90,10 @@ bindkey -v
 
 #New
 #
+function tmuxnew() {
+ tmux new -s $1
+}
+
+alias tat="tmux new-session -As $(basename $PWD | tr . -)"
+alias tks="tmux kill-session"
+
