@@ -52,6 +52,8 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'altercation/vim-colors-solarized'
 
+Plugin 'Yggdroot/indentLine'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -325,3 +327,22 @@ nnoremap <silent> <leader>d "_d
 vnoremap <silent> <leader>d "_d
 
 set wildignore+=*\\node_modules\\*,*.swp,*.zip,*.exe 
+
+" Cursor Line in Normal mode
+:hi CursorLine   cterm=NONE ctermbg=blue ctermfg=white guibg=blue guifg=white
+:hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+autocmd InsertLeave,WinEnter,BufEnter * set cursorline
+autocmd InsertEnter,WinLeave,BufLeave * set nocursorline
+
+" AutoSave
+:set autowrite
+:au BufLeave * :wa
+
+"stay in word after search
+nnoremap * *``
+
+
+
+
+
+

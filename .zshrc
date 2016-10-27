@@ -97,3 +97,6 @@ function tmuxnew() {
 alias tat="tmux new-session -As $(basename $PWD | tr . -)"
 alias tks="tmux kill-session"
 
+
+export NVM_DIR="/home/selva/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
