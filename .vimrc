@@ -15,7 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 
 " sidebar
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
 
 " Bubble text lines
 Plugin 'tpope/vim-unimpaired'
@@ -50,9 +50,17 @@ Plugin 'wimproved.vim'
 " Comment
 Plugin 'scrooloose/nerdcommenter'
 
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 
-Plugin 'Yggdroot/indentLine'
+Plugin 'tpope/vim-vinegar'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'NLKNguyen/papercolor-theme'
+
+"Plugin 'bling/vim-bufferline'
+
+Plugin 'jeetsukumaran/vim-buffergator'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -90,7 +98,7 @@ nnoremap <SPACE> <Nop>
 
 " Fast saving
 nmap <leader>w :w!<cr>
-nmap <leader>q :q<cr>
+nmap <leader>q :bd<cr>
 
 " change colon
 map ; :
@@ -158,7 +166,7 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-colorscheme solarized
+colorscheme PaperColor
 let g:solarized_termtrans = 1
 let g:solarized_termcolors = 256
 set background=dark
@@ -186,8 +194,6 @@ set laststatus=2
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
-" Format the status line
-""set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 """""""""""""""""""""""""""""""
 
@@ -198,37 +204,25 @@ set t_Co=256
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"map <space> /
-"map <c-space> ?
-
-
 imap jj <esc>
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
 
 """"""""""""""
 "" airline
 """"""""""""""
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_theme = 'base16_solarized'
+let g:airline_theme = 'papercolor'
 set guifont=Consolas:h11:cDEFAULT
 let g:airline_right_sep=''
 let g:airline_left_sep=''
 autocmd GUIEnter * silent! :WCenter 100
+"let g:airline_extensions = ['syntastic']
 
 """""""""""""""""""""
 "buffers
@@ -241,17 +235,17 @@ set hidden
 nmap <leader>t :enew<cr>
 
 " Move to the next buffer
-nmap <leader>l :bnext<CR>
+nmap <C-l> :bnext<CR>
 
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
+nmap <C-h> :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<CR>
 
 " Show all open buffers and their status
-nmap <leader>bl :ls<CR>
+" nmap <leader>bl :ls<CR>
 
 
 "" you complete me
@@ -271,7 +265,9 @@ set number                     " Show current line number
 set relativenumber             " Show relative line numbers
 
 "" map NERDTree
-map <leader>n :NERDTreeToggle<CR>
+" map <leader>n :Lexplore<CR>
+
+"" file finder
 map <leader>p :CtrlP<CR>
 
 "" word commplition
@@ -286,7 +282,6 @@ vmap <C-Down> ]egv
 "" remove Highlight
 nnoremap <leader>/ :noh<cr>
 
-
 set expandtab
 
 nnoremap <up> <nop>
@@ -299,7 +294,7 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 
-" Save On Losing focus
+" On Losing focus
 
 au FocusLost * :wa
 
@@ -311,10 +306,10 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " Splits
 
 nnoremap <leader>s <C-w>v<C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
 
 
 " Speed up scrolling of the viewport slightly
@@ -336,10 +331,32 @@ autocmd InsertEnter,WinLeave,BufLeave * set nocursorline
 
 " AutoSave
 :set autowrite
-:au BufLeave * :wa
+:au BufLeave,InsertLeave,CursorHold,FocusLost * :wa
 
 "stay in word after search
 nnoremap * *``
+
+let g:netrw_altv          = 1
+let g:netrw_fastbrowse    = 2
+let g:netrw_keepdir       = 0
+let g:netrw_liststyle     = 3
+let g:netrw_retmap        = 1
+let g:netrw_silent        = 1
+let g:netrw_special_syntax= 1
+
+set colorcolumn=81
+
+" Use the right side of the screen
+let g:buffergator_viewport_split_policy = 'R'
+
+" I want my own keymappings...
+let g:buffergator_suppress_keymaps = 1
+
+" Looper buffers
+"let g:buffergator_mru_cycle_loop = 1
+
+" View the entire list of buffers open
+nmap <leader>n :BuffergatorOpen<cr>
 
 
 
