@@ -59,13 +59,28 @@ Plugin 'pangloss/vim-javascript'
 
 Plugin 'ZoomWin'
 
+Plugin 'wincent/ferret'
+
+Plugin 'leafgarland/typescript-vim'
+
+Plugin 'quramy/tsuquyomi'
+
+" Flow
+"
+Plugin 'flowtype/vim-flow'
+" PureScript
+Plugin 'raichoo/purescript-vim'
+Plugin 'raichoo/haskell-vim'
+
+"Theme
+Plugin 'arcticicestudio/nord-vim'
 " Plugin 'scrooloose/nerdtree'
 " Plugin 'bling/vim-bufferline'
 " Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()            " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -153,10 +168,18 @@ set expandtab
 
 " AutoSave
 :set autowrite
-:au BufLeave,InsertLeave,CursorHold,FocusLost * :wa
+:au BufLeave,InsertLeave,FocusLost * :wa
 
+" Add new file types
+au BufRead,BufNewFile *.ts  setfiletype typescript
+au BufRead,BufNewFile *.purs  setfiletype purescript
+au BufRead,BufNewFile *.js  setfiletype javascript
+
+autocmd FileType javascript set formatprg=prettier\ --stdin\ --single-quote\ --no-semi
+"autocmd BufWritePre *.js :normal gggqG
 ""Line Numbers
 " set number                     " Show current line number
+
 " set relativenumber             " Show relative line numbers
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,8 +187,10 @@ set expandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
+syntax on
 
-colorscheme PaperColor
+"colorscheme PaperColor
+colorscheme nord
 let g:solarized_termtrans = 1
 let g:solarized_termcolors = 256
 set background=dark
@@ -190,6 +215,8 @@ set ffs=unix,dos,mac
 :hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=white guifg=white
 autocmd InsertLeave,WinEnter,BufEnter * set cursorline
 autocmd InsertEnter,WinLeave,BufLeave * set nocursorline
+" autocmd bufwritepost *.js silent !standard --fix %
+set autoread
 
 set colorcolumn=80
 
@@ -224,6 +251,9 @@ nmap <leader>q :bd<cr>
 map ; :
 
 imap jj <esc>
+
+" Multifile Search
+nmap <leader>f :Ack<Space>
 
 """"""""""""""""
 " => Misc
@@ -315,7 +345,7 @@ let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_theme = 'papercolor'
+"let g:airline_theme = 'papercolor'
 let g:airline_right_sep=''
 let g:airline_left_sep=''
 "let g:airline_extensions = ['syntastic']
@@ -323,7 +353,7 @@ let g:airline_left_sep=''
 """""""""""""""""""""
 " => Syntastic
 """""""""""""""""""""
-let g:syntastic_javascript_checkers = ['standard']
+"let g:syntastic_javascript_checkers = ['standard']
 
 """""""""""""""""""""
 " => NETRW
@@ -348,3 +378,4 @@ let g:buffergator_suppress_keymaps = 1
 " View the entire list of buffers open
 nmap <leader>n :BuffergatorToggle<cr>
 
+let g:solarized_termtrans = 1
