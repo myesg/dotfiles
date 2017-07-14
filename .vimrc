@@ -14,7 +14,6 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'L9'
 
-
 " Bubble text lines
 Plugin 'tpope/vim-unimpaired'
 
@@ -22,9 +21,9 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'scrooloose/syntastic'
 
 " Color Scheme
-Plugin 'flazz/vim-colorschemes'
-Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'tomasr/molokai'
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'arcticicestudio/nord-vim'
 
 " File search
 Plugin 'kien/ctrlp.vim'
@@ -47,9 +46,19 @@ Plugin 'wimproved.vim'
 " Comment
 Plugin 'scrooloose/nerdcommenter'
 
+" Flow
+Plugin 'flowtype/vim-flow'
+
+" PureScript
+Plugin 'raichoo/purescript-vim'
+
+Plugin 'raichoo/haskell-vim'
+
 Plugin 'tpope/vim-vinegar'
 
 Plugin 'tpope/vim-surround'
+
+Plugin 'tpope/vim-fugitive'
 
 Plugin 'jeetsukumaran/vim-buffergator'
 
@@ -65,18 +74,9 @@ Plugin 'leafgarland/typescript-vim'
 
 Plugin 'quramy/tsuquyomi'
 
-" Flow
-"
-Plugin 'flowtype/vim-flow'
-" PureScript
-Plugin 'raichoo/purescript-vim'
-Plugin 'raichoo/haskell-vim'
+Plugin 'mitermayer/vim-prettier'
 
-"Theme
-Plugin 'arcticicestudio/nord-vim'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'bling/vim-bufferline'
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'devjoe/vim-codequery'
 
 call vundle#end()            " required
 " To ignore plugin indent changes, instead use:
@@ -160,6 +160,7 @@ set mat=2
 
 " No annoying sound on errors
 set noerrorbells
+
 " set novisualbell
 set t_vb=
 set tm=500
@@ -168,15 +169,14 @@ set expandtab
 
 " AutoSave
 :set autowrite
-:au BufLeave,InsertLeave,FocusLost * :wa
+:au InsertLeave,FocusLost * :wa
 
 " Add new file types
 au BufRead,BufNewFile *.ts  setfiletype typescript
 au BufRead,BufNewFile *.purs  setfiletype purescript
 au BufRead,BufNewFile *.js  setfiletype javascript
 
-autocmd FileType javascript set formatprg=prettier\ --stdin\ --single-quote\ --no-semi
-"autocmd BufWritePre *.js :normal gggqG
+
 ""Line Numbers
 " set number                     " Show current line number
 
@@ -213,8 +213,10 @@ set ffs=unix,dos,mac
 " Cursor Line in Normal mode
 :hi CursorLine   cterm=NONE ctermbg=blue ctermfg=white guibg=blue guifg=white
 :hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=white guifg=white
+
 autocmd InsertLeave,WinEnter,BufEnter * set cursorline
 autocmd InsertEnter,WinLeave,BufLeave * set nocursorline
+
 " autocmd bufwritepost *.js silent !standard --fix %
 set autoread
 
@@ -245,6 +247,7 @@ nnoremap <SPACE> <Nop>
 
 " Fast saving
 nmap <leader>w :w!<cr>
+nmap <leader>W :wall!<cr>
 nmap <leader>q :bd<cr>
 
 " change colon
@@ -273,7 +276,7 @@ nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 
 "" file finder
-map <leader>p :CtrlP<CR>
+map <leader>p :Prettier<cr>
 
 "" word commplition
 imap <leader>c <C-N>
@@ -285,7 +288,7 @@ nmap <leader>o ]<Space>
 nnoremap <leader>/ :noh<cr>
 
 "Strip whitespace
-nnoremap <leader>W :StripWhitespace<cr>
+nnoremap <leader>S :StripWhitespace<cr>
 
 " Splits
 nnoremap <leader>s <C-w>v<C-w>l
@@ -329,7 +332,7 @@ nmap <C-h> :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
+" nmap <leader>bq :bp <BAR> bd #<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
@@ -379,3 +382,21 @@ let g:buffergator_suppress_keymaps = 1
 nmap <leader>n :BuffergatorToggle<cr>
 
 let g:solarized_termtrans = 1
+
+" HTML Indentation
+"
+"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+let g:html_indent_inctags ="address,article,aside,audio,blockquote,canvas,dd,div,dl,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,main,nav,noscript,ol,output,p,pre,section,table,tfoot,ul,video"
+
+
+" Prettier
+"
+"
+" print semicolons
+ let g:prettier#config#semi = 'false'
+ let g:prettier#config#single_quote = 'true'
+ let g:prettier#config#use_tabs = 'false'
+ let g:prettier#config#bracket_spacing = 'true'
+ let g:prettier#config#trailing_comma = 'none'

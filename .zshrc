@@ -1,3 +1,5 @@
+# set -x
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -51,7 +53,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node npm docker cabal vi-mode gibo-plugin)
+plugins=(git node npm gibo-plugin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,8 +99,15 @@ function tmuxnew() {
 alias tat="tmux new-session -As $(basename $PWD | tr . -)"
 alias tks="tmux kill-session"
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin:/home/selva/gradle/gradle-4.0.1/bin
+export ANDROID_HOME=/home/selva/androidstudio/android-studio
 export GOPATH=$HOME/projects/go
 
 export NVM_DIR="/home/selva/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[[ $- = *i* ]] && source ~/liquidprompt/liquidprompt
+
+
+
+# set +x
