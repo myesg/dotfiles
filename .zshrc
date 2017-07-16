@@ -99,7 +99,7 @@ function tmuxnew() {
 alias tat="tmux new-session -As $(basename $PWD | tr . -)"
 alias tks="tmux kill-session"
 
-export PATH=$PATH:/usr/local/go/bin:/home/selva/gradle/gradle-4.0.1/bin
+export PATH=$PATH:/usr/local/go/bin:/home/selva/gradle/gradle-4.0.1/bin:/home/selva/Android/Sdk/platform-tools
 export ANDROID_HOME=/home/selva/androidstudio/android-studio
 export GOPATH=$HOME/projects/go
 
