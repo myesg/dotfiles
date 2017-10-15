@@ -28,7 +28,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'arcticicestudio/nord-vim'
 
 " File search
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 
 " Status Bar
 Plugin 'vim-airline/vim-airline'
@@ -273,6 +273,8 @@ imap jj <esc>
 " Multifile Search
 nmap <leader>f :Ack<Space>
 
+nmap <leader>e :FZF<CR>
+
 """"""""""""""""
 " => Misc
 """""""""""""""
@@ -294,7 +296,7 @@ nnoremap <C-y> 2<C-y>
 map <leader>p :Prettier<cr>
 
 "" word commplition
-imap <leader>c <C-N>
+imap <leader>c <C-x><C-o>
 
 "" Add spce below with out going to insert mode
 nmap <leader>o ]<Space>
@@ -307,6 +309,7 @@ nnoremap <leader>S :StripWhitespace<cr>
 
 " Splits
 nnoremap <leader>s <C-w>v<C-w>l
+nnoremap <leader>; <C-w><C-w>
 nnoremap <leader>h <C-w>h
 nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
