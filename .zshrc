@@ -57,8 +57,6 @@ plugins=(git node npm gibo-plugin)
 
 source $ZSH/oh-my-zsh.sh
 
-export EDITOR="vim"
-
 bindkey -v
 
 # User configuration
@@ -68,20 +66,13 @@ bindkey -v
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# Set personales, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
@@ -92,12 +83,17 @@ bindkey -v
 
 #New
 #
-function tmuxnew() {
- tmux new -s $1
-}
+bindkey -s jj history-search-backward
 
 alias tat="tmux new-session -As $(basename $PWD | tr . -)"
 alias tks="tmux kill-session"
+alias ccheckw="watchexec -e rs -p -c cargo build"
+alias ctestw="watchexec -e rs -p -c cargo test"
+
+alias tnt="tmux new-session 'tmux source-file ~/.tsessions/node'"
+
+
+
 # git alias
 alias ga='git add'
 alias gp='git push'
@@ -111,6 +107,7 @@ alias gm='git commit -m'
 alias gc='git checkout'
 
 
+export EDITOR="vim"
 export PATH=$PATH:/usr/local/go/bin:/home/selva/gradle/gradle-4.0.1/bin:/home/selva/Android/Sdk/platform-tools
 export ANDROID_HOME=/home/selva/androidstudio/android-studio
 export GOPATH=$HOME/projects/go
@@ -121,6 +118,12 @@ export NVM_DIR="/home/selva/.nvm"
 
 [[ $- = *i* ]] && source ~/liquidprompt/liquidprompt
 
-
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # set +x
+
+export PATH=$HOME/bin:$PATH
+
+export PATH="$HOME/.yarn/bin:$PATH"
