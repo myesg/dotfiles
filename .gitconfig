@@ -1,0 +1,38 @@
+[user]
+	email = selvaganapathy@outlook.in
+	name = selva
+[push]
+	default = simple
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  ls = log --oneline --decorate -20
+  caa = commit -a --amend -C HEAD
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+	lg = log --graph --pretty=format:'%C(auto)%h -%d %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[core]
+[credential]
+	helper = cache --timeout=360000
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 227
+	frag = magenta bold
+	commit = 227 bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = /home/selva/.gitignore
+[help]
+	autocorrect = 10

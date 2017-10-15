@@ -98,10 +98,23 @@ function tmuxnew() {
 
 alias tat="tmux new-session -As $(basename $PWD | tr . -)"
 alias tks="tmux kill-session"
+# git alias
+alias ga='git add'
+alias gp='git push'
+alias gpu='git pull'
+
+alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+
+alias gm='git commit -m'
+alias gc='git checkout'
+
 
 export PATH=$PATH:/usr/local/go/bin:/home/selva/gradle/gradle-4.0.1/bin:/home/selva/Android/Sdk/platform-tools
 export ANDROID_HOME=/home/selva/androidstudio/android-studio
 export GOPATH=$HOME/projects/go
+
 
 export NVM_DIR="/home/selva/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
