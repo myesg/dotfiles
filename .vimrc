@@ -2,6 +2,8 @@
 " VUNDLE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
+filetype plugin off
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -78,6 +80,16 @@ Plugin 'mitermayer/vim-prettier'
 
 Plugin 'devjoe/vim-codequery'
 
+Plugin 'junegunn/fzf'
+
+Plugin 'rust-lang/rust.vim'
+
+Plugin 'racer-rust/vim-racer'
+
+Plugin 'sebastianmarkow/deoplete-rust'
+
+Plugin 'AutoComplPop'
+
 call vundle#end()            " required
 " To ignore plugin indent changes, instead use:
 filetype plugin on
@@ -108,6 +120,8 @@ filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+au CursorHold * checktime
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -172,9 +186,10 @@ set expandtab
 :au InsertLeave,FocusLost * :wa
 
 " Add new file types
-au BufRead,BufNewFile *.ts  setfiletype typescript
-au BufRead,BufNewFile *.purs  setfiletype purescript
+au BufRead,BufNewFile *.purs setfiletype purescript
 au BufRead,BufNewFile *.js  setfiletype javascript
+au BufRead,BufNewFile *.rs  set filetype=rust
+au BufRead,BufNewFile *.ts  set filetype=typescript
 
 
 ""Line Numbers
@@ -400,3 +415,35 @@ let g:html_indent_inctags ="address,article,aside,audio,blockquote,canvas,dd,div
  let g:prettier#config#use_tabs = 'false'
  let g:prettier#config#bracket_spacing = 'true'
  let g:prettier#config#trailing_comma = 'none'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rust
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1
+set hidden
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Racer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:racer_cmd = "/home/selva/.cargo/bin/racer"
+let g:deoplete#sources#rust#racer_binary="/home/selva/.cargo/bin/racer"
+let g:deoplete#sources#rust#rust_source_path="/home/selva/rust-src/rust/src"
+let g:deoplete#sources#rust#disable_keymap=1
+
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+:set completeopt=longest,menuone
+:inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" open omni completion menu closing previous if open and opening new menu without changing the text
+inoremap <expr> <C-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+            \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+" open user completion menu closing previous if open and opening new menu without changing the text
+inoremap <expr> <S-Space> (pumvisible() ? (col('.') > 1 ? '<Esc>i<Right>' : '<Esc>i') : '') .
+            \ '<C-x><C-u><C-r>=pumvisible() ? "\<lt>C-n>\<lt>C-p>\<lt>Down>" : ""<CR>'
+
+
+
